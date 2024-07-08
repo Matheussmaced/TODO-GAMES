@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 @Table(name = "tb_games")
 public class Games {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
   @Column(name = "gameName")
