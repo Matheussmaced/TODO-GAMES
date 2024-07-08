@@ -33,12 +33,14 @@ public class User {
   public User() {
   }
 
-  public User(UUID userId, String name, String password, Instant creationTimestamp, Instant updateTimeInstant) {
+  public User(UUID userId, String name, String password, Instant creationTimestamp, Instant updateTimeInstant,
+      Games games) {
     this.userId = userId;
     this.name = name;
     this.password = password;
     this.creationTimestamp = creationTimestamp;
     this.updateTimeInstant = updateTimeInstant;
+    this.games = games;
   }
 
   public UUID getUserId() {
@@ -79,6 +81,14 @@ public class User {
 
   public void setUpdateTimeInstant(Instant updateTimeInstant) {
     this.updateTimeInstant = updateTimeInstant;
+  }
+
+  public Games getGames() {
+    return games;
+  }
+
+  public void setGames(Games games) {
+    this.games = games;
   }
 
 }
