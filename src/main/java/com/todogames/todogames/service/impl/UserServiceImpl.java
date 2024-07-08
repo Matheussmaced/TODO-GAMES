@@ -3,10 +3,13 @@ package com.todogames.todogames.service.impl;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
 import com.todogames.todogames.entity.User;
 import com.todogames.todogames.repository.UserRepository;
 import com.todogames.todogames.service.UserService;
 
+@Service
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
