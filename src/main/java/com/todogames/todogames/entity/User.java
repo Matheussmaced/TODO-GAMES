@@ -27,6 +27,9 @@ public class User {
   @UpdateTimestamp
   private Instant updateTimeInstant;
 
+  @OneToOne(cascade = CascadeType.ALL)
+  private Games games;
+
   public User() {
   }
 
