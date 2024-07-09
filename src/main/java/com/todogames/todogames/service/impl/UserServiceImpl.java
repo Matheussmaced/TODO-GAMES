@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.todogames.todogames.DTO.UpdateUserDto;
 import com.todogames.todogames.entity.User;
 import com.todogames.todogames.repository.UserRepository;
 import com.todogames.todogames.service.UserService;
@@ -21,8 +22,10 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User findById(UUID id) {
-    return userRepository.findById(id).orElseThrow();
+  public User findById(String id) {
+    var UserId = UUID.fromString(id);
+
+    return userRepository.findById(UserId).orElseThrow();
   }
 
   @Override
@@ -41,9 +44,25 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void delete(UUID id) {
-    User userToDelete = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
+  public void delete(String id) {
+    var userId = UUID.fromString(id);
+
+    User userToDelete = userRepository.findById(userId)
+        .orElseThrow(() -> new EntityNotFoundException("User not found"));
     userRepository.delete(userToDelete);
   }
 
+  @Override
+  public User updateUser(String id, UpdateUserDto updateUserDto) {
+    var userId = UUID.fromString(id);
+    var userEntity = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+    if (updateUserDto.name() != null) {
+      userEntity.setName(updateUserDto.name());
+    }
+    if (updateUserDto.password() != null) {
+      userEntity.setPassword(updateUserDto.password());
+    }
+    return userRepository.save(userEntity);
+  }
 }

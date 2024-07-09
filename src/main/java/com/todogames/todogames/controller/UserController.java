@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.todogames.todogames.DTO.UpdateUserDto;
 import com.todogames.todogames.entity.User;
 import com.todogames.todogames.service.UserService;
 
@@ -34,7 +36,7 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<User> findById(@PathVariable UUID id) {
+  public ResponseEntity<User> findById(@PathVariable String id) {
     var user = userService.findById(id);
     return ResponseEntity.ok(user);
   }
@@ -48,10 +50,18 @@ public class UserController {
     return ResponseEntity.created(location).body(userCreated);
   }
 
+  @PutMapping("/{id}")
+  public ResponseEntity<Void> updateUserById(@PathVariable("id") String id, @RequestBody UpdateUserDto updateUserDto) {
+    userService.updateUser(id, updateUserDto);
+
+    return ResponseEntity.noContent().build();
+  }
+
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
+  public ResponseEntity<Void> deleteById(@PathVariable String id) {
     userService.delete(id);
 
     return ResponseEntity.noContent().build();
   }
+
 }
