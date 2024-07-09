@@ -1,6 +1,7 @@
 package com.todogames.todogames.entity;
 
 import java.util.UUID;
+import java.util.List;
 import java.time.Instant;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,14 +28,14 @@ public class User {
   @UpdateTimestamp
   private Instant updateTimeInstant;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  private Games games;
+  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Games> games;
 
   public User() {
   }
 
   public User(UUID userId, String name, String password, Instant creationTimestamp, Instant updateTimeInstant,
-      Games games) {
+      List<Games> games) {
     this.userId = userId;
     this.name = name;
     this.password = password;
@@ -83,11 +84,11 @@ public class User {
     this.updateTimeInstant = updateTimeInstant;
   }
 
-  public Games getGames() {
+  public List<Games> getGames() {
     return games;
   }
 
-  public void setGames(Games games) {
+  public void setGames(List<Games> games) {
     this.games = games;
   }
 
