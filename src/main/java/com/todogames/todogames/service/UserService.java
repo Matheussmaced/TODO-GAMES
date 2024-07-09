@@ -14,4 +14,6 @@ public interface UserService {
   List<User> findAll();
 
   User create(User userToCreate);
+
+  void delete(UUID id);
 }

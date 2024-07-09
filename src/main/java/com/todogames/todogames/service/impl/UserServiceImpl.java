@@ -9,6 +9,8 @@ import com.todogames.todogames.entity.User;
 import com.todogames.todogames.repository.UserRepository;
 import com.todogames.todogames.service.UserService;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -36,6 +38,12 @@ public class UserServiceImpl implements UserService {
   @Override
   public User create(User userToCreate) {
     return userRepository.save(userToCreate);
+  }
+
+  @Override
+  public void delete(UUID id) {
+    User userToDelete = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
+    userRepository.delete(userToDelete);
   }
 
 }
