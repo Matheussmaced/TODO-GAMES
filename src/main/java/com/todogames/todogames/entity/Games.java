@@ -2,6 +2,8 @@ package com.todogames.todogames.entity;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -22,6 +24,7 @@ public class Games {
 
   @ManyToOne
   @JoinColumn(name = "user_id")
+  @JsonBackReference
   private User user;
 
   public Games() {

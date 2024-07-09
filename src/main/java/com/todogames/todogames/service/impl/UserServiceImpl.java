@@ -3,9 +3,13 @@ package com.todogames.todogames.service.impl;
 import java.util.List;
 import java.util.UUID;
 
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
+import com.todogames.todogames.DTO.CreateUserDto;
 import com.todogames.todogames.DTO.UpdateUserDto;
+import com.todogames.todogames.entity.Games;
 import com.todogames.todogames.entity.User;
 import com.todogames.todogames.repository.UserRepository;
 import com.todogames.todogames.service.UserService;
@@ -39,8 +43,22 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User create(User userToCreate) {
-    return userRepository.save(userToCreate);
+  public User create(CreateUserDto createUserDto) {
+    User user = new User();
+    user.setName(createUserDto.name());
+    user.setPassword(createUserDto.password());
+
+    List<Games> games = createUserDto.games().stream().map(createGameDto -> {
+      Games game = new Games();
+      game.setName(createGameDto.name());
+      game.setDescription(createGameDto.description());
+      game.setCompleted(createGameDto.completed());
+      game.setUser(user);
+      return game;
+    }).collect(Collectors.toList());
+
+    user.setGames(games);
+    return userRepository.save(user);
   }
 
   @Override

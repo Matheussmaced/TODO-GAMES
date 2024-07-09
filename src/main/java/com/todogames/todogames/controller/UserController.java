@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.todogames.todogames.DTO.CreateUserDto;
 import com.todogames.todogames.DTO.UpdateUserDto;
 import com.todogames.todogames.entity.User;
 import com.todogames.todogames.service.UserService;
@@ -42,8 +43,8 @@ public class UserController {
   }
 
   @PostMapping
-  public ResponseEntity<User> create(@RequestBody User userToCreate) {
-    var userCreated = userService.create(userToCreate);
+  public ResponseEntity<User> create(@RequestBody CreateUserDto createUserDto) {
+    var userCreated = userService.create(createUserDto);
     URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
         .buildAndExpand(userCreated.getUserId()).toUri();
 

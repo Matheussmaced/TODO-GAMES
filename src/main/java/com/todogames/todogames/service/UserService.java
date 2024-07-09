@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.todogames.todogames.DTO.CreateUserDto;
 import com.todogames.todogames.DTO.UpdateUserDto;
 import com.todogames.todogames.entity.User;
 
@@ -14,7 +15,7 @@ public interface UserService {
 
   List<User> findAll();
 
-  User create(User userToCreate);
+  User create(CreateUserDto createUserDto);
 
   void delete(String id);
 
