@@ -20,14 +20,19 @@ public class Games {
   @Column(name = "completed")
   private boolean completed;
 
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User user;
+
   public Games() {
   }
 
-  public Games(UUID id, String name, String description, boolean completed) {
+  public Games(UUID id, String name, String description, boolean completed, User user) {
     this.id = id;
     this.name = name;
     this.description = description;
     this.completed = completed;
+    this.user = user;
   }
 
   public UUID getId() {
@@ -40,6 +45,10 @@ public class Games {
 
   public String getDescription() {
     return description;
+  }
+
+  public User getUser() {
+    return user;
   }
 
   public boolean isCompleted() {
@@ -60,6 +69,10 @@ public class Games {
 
   public void setCompleted(boolean completed) {
     this.completed = completed;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 
 }
