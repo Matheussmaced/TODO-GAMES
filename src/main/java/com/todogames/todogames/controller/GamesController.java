@@ -5,6 +5,7 @@ import java.net.URI;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -41,6 +42,13 @@ public class GamesController {
   @PutMapping("/games/{id}")
   public ResponseEntity<Void> updateGameById(@PathVariable("id") String id, @RequestBody UpdateGameDto updateGameDto) {
     gameService.updateGames(id, updateGameDto);
+
+    return ResponseEntity.noContent().build();
+  }
+
+  @DeleteMapping("/games/{id}")
+  public ResponseEntity<Void> deleteGameById(@PathVariable("id") String id) {
+    gameService.deleteGame(id);
 
     return ResponseEntity.noContent().build();
   }

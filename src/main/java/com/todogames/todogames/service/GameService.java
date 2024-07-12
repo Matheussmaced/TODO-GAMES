@@ -11,4 +11,6 @@ public interface GameService {
   Games updateGames(String id, UpdateGameDto updateGameDto);
 
   Games createGames(String id, CreateGameDto createGameDto);
+
+  public void deleteGame(String id);
 }

@@ -55,4 +55,15 @@ public class GamesServiceImpl implements GameService {
     }
     return gamesRepository.save(gamesEntity);
   }
+
+  @Override
+  public void deleteGame(String id) {
+    var gameId = UUID.fromString(id);
+
+    Games gameToDelete = gamesRepository.findById(gameId)
+        .orElseThrow(() -> new EntityNotFoundException("Game not found"));
+
+    gamesRepository.delete(gameToDelete);
+  }
+
 }
